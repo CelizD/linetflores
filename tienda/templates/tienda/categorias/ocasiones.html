@@ -1,0 +1,26 @@
+{% extends "tienda/base.html" %}
+{% block title %}Categoría: Ocasiones{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">🎁 Flores para Ocasiones Especiales</h2>
+    <p class="text-center text-muted">Encuentra el arreglo perfecto para cualquier momento especial.</p>
+
+    <div class="row">
+        {% for i in "1234" %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://via.placeholder.com/300x200?text=Ocasión+{{ i }}" class="card-img-top" alt="Flor ocasión {{ i }}">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Arreglo Ocasión {{ i }}</h5>
+                    <p class="card-text text-center">$470.00 MXN</p>
+                    <div class="text-center">
+                        <a href="#" class="btn btn-outline-danger btn-sm">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

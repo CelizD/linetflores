@@ -1,0 +1,20 @@
+{% extends "tienda/base.html" %}
+
+{% block title %}Pago Fallido - LinetFlores{% endblock %}
+
+{% block content %}
+<div class="alert alert-danger mt-4">
+    <h3>El pago no pudo ser procesado ❌</h3>
+    <p>
+        {% if error %}
+            {{ error }}
+        {% else %}
+            Hubo un problema con tu pago. Por favor, intenta de nuevo o contacta soporte.
+        {% if mensaje %}
+    <p class="text-danger">{{ mensaje }}</p>
+        {% endif %}
+    </p>
+    <a href="{% url 'ver_carrito' %}" class="btn btn-warning">Volver al carrito</a>
+</div>
+
+{% endblock %}

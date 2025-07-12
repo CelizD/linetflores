@@ -1,0 +1,10 @@
+{% extends "tienda/base.html" %}
+
+{% block title %}Gracias - LinetFlores{% endblock %}
+
+{% block content %}
+<div class="alert alert-success" role="alert">
+    ¡Gracias, {{ nombre }}! Tu mensaje ha sido enviado correctamente.
+</div>
+<a href="{% url 'inicio' %}" class="btn btn-primary">Volver al inicio</a>
+{% endblock %}

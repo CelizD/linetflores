@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}LinetFlores{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #fdf8f5;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .navbar {
+            background-color: #c2185b;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        footer {
+            background-color: #f1f1f1;
+            padding: 1rem 0;
+            text-align: center;
+            margin-top: 4rem;
+            border-top: 1px solid #ddd;
+        }
+
+        /* Estilos del menú de categorías */
+        .navbar-categorias {
+            background-color: #fff;
+            border-bottom: 2px solid #ff007f;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .navbar-categorias-lista {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .navbar-categorias-lista li {
+            padding: 0 15px;
+            border-right: 1px solid #ccc;
+        }
+
+        .navbar-categorias-lista li:last-child {
+            border-right: none;
+        }
+
+        .navbar-categorias-lista a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .navbar-categorias-lista a:hover {
+            color: #ff007f;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'inicio' %}">🌷 LinetFlores</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'ver_carrito' %}">Carrito</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'listar_pedidos' %}">Mis Pedidos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Menú secundario de categorías -->
+<nav class="navbar-categorias">
+    <ul class="navbar-categorias-lista">
+        <li><a href="{% url 'cumpleanos' %}">CUMPLEAÑOS</a></li>
+        <li><a href="{% url 'ocasiones' %}">OCASIONES</a></li>
+        <li><a href="{% url 'flores' %}">FLORES</a></li>
+        <li><a href="{% url 'rosas' %}">ROSAS</a></li>
+        <li><a href="{% url 'funeral' %}">FUNERAL Y CONDOLENCIAS</a></li>
+        <li><a href="{% url 'plantas' %}">PLANTAS</a></li>
+    </ul>
+</nav>
+
+<div class="container mt-4">
+    {% block content %}{% endblock %}
+</div>
+
+<footer>
+    <p class="mb-0">© 2025 LinetFlores 🌸 | Amor en cada ramo</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

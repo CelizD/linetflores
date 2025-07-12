@@ -1,0 +1,17 @@
+{% extends "tienda/base.html" %}
+
+{% block title %}Pago Pendiente - LinetFlores{% endblock %}
+
+{% block content %}
+<div class="alert alert-info mt-4">
+    <h3>Tu pago está pendiente ⏳</h3>
+    <p>Estamos esperando la confirmación del pago. Te notificaremos cuando esté aprobado.</p>
+
+    {% if pedido_id %}
+        <p><strong>Número de pedido:</strong> #{{ pedido_id }}</p>
+    {% endif %}
+
+    <a href="{% url 'listar_pedidos' %}" class="btn btn-secondary">Ver mis pedidos</a>
+    <a href="{% url 'inicio' %}" class="btn btn-primary ml-2">Volver al inicio</a>
+</div>
+{% endblock %}

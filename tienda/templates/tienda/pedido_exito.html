@@ -1,0 +1,11 @@
+{% extends "tienda/base.html" %}
+
+{% block title %}¡Pedido realizado!{% endblock %}
+
+{% block content %}
+<div class="alert alert-success">
+    <h4 class="alert-heading">¡Gracias por tu compra!</h4>
+    <p>Tu pedido ha sido procesado correctamente. Pronto nos pondremos en contacto contigo. 🌸</p>
+    <a href="{% url 'inicio' %}" class="btn btn-primary">Volver al inicio</a>
+</div>
+{% endblock %}

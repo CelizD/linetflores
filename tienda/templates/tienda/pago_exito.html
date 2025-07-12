@@ -1,0 +1,16 @@
+{% extends "tienda/base.html" %}
+
+{% block title %}Pago Exitoso - LinetFlores{% endblock %}
+
+{% block content %}
+<div class="alert alert-success mt-4">
+    <h3>¡Pago realizado con éxito! 🎉</h3>
+    <p>Gracias por tu compra. Tu pedido está siendo procesado.</p>
+
+    {% if pedido_id %}
+        <p><strong>Número de pedido:</strong> #{{ pedido_id }}</p>
+    {% endif %}
+
+    <a href="{% url 'inicio' %}" class="btn btn-primary">Volver al inicio</a>
+</div>
+{% endblock %}

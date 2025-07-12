@@ -1,0 +1,37 @@
+{% extends "tienda/base.html" %}
+
+{% block title %}Mis Pedidos - LinetFlores{% endblock %}
+
+{% block content %}
+<h2>Mis Pedidos</h2>
+
+{% if pedidos %}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Correo</th>
+      <th>Teléfono</th>
+      <th>Identificación</th>
+      <th>Fecha</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for pedido in pedidos %}
+    <tr>
+      <td>{{ pedido.id }}</td>
+      <td>{{ pedido.nombre }}</td>
+      <td>{{ pedido.correo }}</td>
+      <td>{{ pedido.telefono }}</td>
+      <td>{{ pedido.identificacion }}</td>
+      <td>{{ pedido.creado_en|date:"d/m/Y H:i" }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No tienes pedidos aún.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "tienda/base.html" %}
+{% load static %}
+
+{% block title %}Confirmar Pago - LinetFlores{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h2 class="mb-4">💳 Confirmación de Pago</h2>
+    <p class="lead">Gracias por tu pedido. Estamos procesando tu pago.</p>
+
+    <div class="alert alert-info mt-4">
+        <p><strong>Nota:</strong> Esta es una simulación. La integración de un sistema de pagos real como Stripe, PayPal o MercadoPago aún no está activa.</p>
+    </div>
+
+    <a href="{% url 'inicio' %}" class="btn btn-primary mt-3">Volver al inicio</a>
+</div>
+{% endblock %}

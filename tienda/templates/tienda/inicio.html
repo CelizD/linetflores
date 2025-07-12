@@ -1,0 +1,209 @@
+{% extends "tienda/base.html" %}
+
+{% block title %}Inicio - LinetFlores{% endblock %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h1 class="display-4">🌸 Bienvenido a LinetFlores 🌸</h1>
+    <p class="lead">Encuentra las flores más hermosas para cada ocasión.</p>
+</div>
+
+<style>
+  /* Filtros horizontal alineados a la izquierda */
+  .filtros {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 30px;
+  }
+
+  .filtros .titulo {
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 20px;
+    user-select: none;
+  }
+
+  .filtro {
+    position: relative;
+    cursor: pointer;
+    padding: 6px 12px;
+    background: #eee;
+    border-radius: 4px;
+    user-select: none;
+  }
+
+  .filtro ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin: 4px 0 0 0;
+    padding: 8px 12px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 220px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    z-index: 10;
+  }
+
+  .filtro.activo ul {
+    display: block;
+  }
+
+  .filtro ul li {
+    padding: 4px 0;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .filtro ul li:hover {
+    background-color: #f0f0f0;
+  }
+</style>
+
+<!-- Contenedor para filtros y flores lado a lado -->
+<div class="row">
+  <div class="col-md-3">
+    <div class="filtros flex-column">
+      <div class="titulo mb-3">Filtrar</div>
+
+      <div class="filtro" onclick="toggleFiltro(this)">
+        Variedad de flores
+        <ul>
+          {% for v in variedades %}
+            <li>
+              <a href="?variedad={{ v.id }}{% if filtros_seleccionados.color %}&color={{ filtros_seleccionados.color }}{% endif %}{% if filtros_seleccionados.material %}&material={{ filtros_seleccionados.material }}{% endif %}{% if filtros_seleccionados.precio %}&precio={{ filtros_seleccionados.precio|urlencode }}{% endif %}{% if filtros_seleccionados.longitud %}&longitud={{ filtros_seleccionados.longitud|urlencode }}{% endif %}"
+                 style="{% if filtros_seleccionados.variedad == v.id|stringformat:'s' %}font-weight:bold; text-decoration: underline;{% endif %}">
+                {{ v.nombre }}
+              </a>
+            </li>
+          {% empty %}
+            <li>No hay variedades</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="filtro" onclick="toggleFiltro(this)">
+        Color
+        <ul>
+          {% for c in colores %}
+            <li>
+              <a href="?color={{ c.id }}{% if filtros_seleccionados.variedad %}&variedad={{ filtros_seleccionados.variedad }}{% endif %}{% if filtros_seleccionados.material %}&material={{ filtros_seleccionados.material }}{% endif %}{% if filtros_seleccionados.precio %}&precio={{ filtros_seleccionados.precio|urlencode }}{% endif %}{% if filtros_seleccionados.longitud %}&longitud={{ filtros_seleccionados.longitud|urlencode }}{% endif %}"
+                 style="{% if filtros_seleccionados.color == c.id|stringformat:'s' %}font-weight:bold; text-decoration: underline;{% endif %}">
+                {{ c.nombre }}
+              </a>
+            </li>
+          {% empty %}
+            <li>No hay colores</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="filtro" onclick="toggleFiltro(this)">
+        Material
+        <ul>
+          {% for m in materiales %}
+            <li>
+              <a href="?material={{ m.id }}{% if filtros_seleccionados.variedad %}&variedad={{ filtros_seleccionados.variedad }}{% endif %}{% if filtros_seleccionados.color %}&color={{ filtros_seleccionados.color }}{% endif %}{% if filtros_seleccionados.precio %}&precio={{ filtros_seleccionados.precio|urlencode }}{% endif %}{% if filtros_seleccionados.longitud %}&longitud={{ filtros_seleccionados.longitud|urlencode }}{% endif %}"
+                 style="{% if filtros_seleccionados.material == m.id|stringformat:'s' %}font-weight:bold; text-decoration: underline;{% endif %}">
+                {{ m.nombre }}
+              </a>
+            </li>
+          {% empty %}
+            <li>No hay materiales</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="filtro" onclick="toggleFiltro(this)">
+        Precio
+        <ul>
+          {% for p in precios %}
+            <li>
+              <a href="?precio={{ p|urlencode }}{% if filtros_seleccionados.variedad %}&variedad={{ filtros_seleccionados.variedad }}{% endif %}{% if filtros_seleccionados.color %}&color={{ filtros_seleccionados.color }}{% endif %}{% if filtros_seleccionados.material %}&material={{ filtros_seleccionados.material }}{% endif %}{% if filtros_seleccionados.longitud %}&longitud={{ filtros_seleccionados.longitud|urlencode }}{% endif %}"
+                 style="{% if filtros_seleccionados.precio == p %}font-weight:bold; text-decoration: underline;{% endif %}">
+                {{ p }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="filtro" onclick="toggleFiltro(this)">
+        Longitud
+        <ul>
+          {% for l in longitudes %}
+            <li>
+              <a href="?longitud={{ l|urlencode }}{% if filtros_seleccionados.variedad %}&variedad={{ filtros_seleccionados.variedad }}{% endif %}{% if filtros_seleccionados.color %}&color={{ filtros_seleccionados.color }}{% endif %}{% if filtros_seleccionados.material %}&material={{ filtros_seleccionados.material }}{% endif %}{% if filtros_seleccionados.precio %}&precio={{ filtros_seleccionados.precio|urlencode }}{% endif %}"
+                 style="{% if filtros_seleccionados.longitud == l %}font-weight:bold; text-decoration: underline;{% endif %}">
+                {{ l }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Botón para limpiar filtros -->
+      <div style="margin-top: 10px;">
+        <a href="{% url 'inicio' %}">Limpiar filtros</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9">
+    <div class="row">
+      {% for flor in flores %}
+      <div class="col-md-4 d-flex align-items-stretch">
+        <div class="card shadow-sm mb-4 w-100">
+          <img src="{{ flor.imagen.url }}" class="card-img-top" style="height: 250px; object-fit: cover;" alt="{{ flor.nombre }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ flor.nombre }}</h5>
+            <p class="card-text">{{ flor.descripcion|truncatewords:20 }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-success font-weight-bold">${{ flor.precio }}</span>
+              <form action="{% url 'agregar_al_carrito' flor.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-outline-primary">Agregar al carrito</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center">
+        <p class="text-muted">Aún no hay flores disponibles.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleFiltro(element) {
+    const filtros = document.querySelectorAll('.filtro');
+    filtros.forEach(f => {
+      if (f !== element) {
+        f.classList.remove('activo');
+      }
+    });
+    element.classList.toggle('activo');
+  }
+
+  document.addEventListener('click', function(e) {
+    const filtros = document.querySelectorAll('.filtro');
+    let clickedInside = false;
+    filtros.forEach(f => {
+      if (f.contains(e.target)) clickedInside = true;
+    });
+    if (!clickedInside) {
+      filtros.forEach(f => f.classList.remove('activo'));
+    }
+  });
+</script>
+
+{% endblock %}

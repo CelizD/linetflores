@@ -1,0 +1,51 @@
+{% extends "tienda/base.html" %}
+
+{% block title %}Tu Carrito - LinetFlores{% endblock %}
+
+{% block content %}
+<h1>Tu Carrito</h1>
+
+{% if items %}
+<table class="table table-bordered">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Flor</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Precio unitario</th>
+            <th scope="col">Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.flor.nombre }}</td>
+            <td>{{ item.cantidad }}</td>
+            <td>${{ item.flor.precio|floatformat:2 }}</td>
+            <td>${{ item.subtotal|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="3" class="text-right">Total:</th>
+            <th>${{ total|floatformat:2 }}</th>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="d-flex  mb-3">
+    <a href="{% url 'proceder_pago' %}" class="btn btn-success mr-2">Proceder al pago</a>
+    <a href="{% url 'vaciar_carrito' %}" class="btn btn-danger"
+       onclick="return confirm('¿Seguro que quieres vaciar el carrito?');">
+       Vaciar Carrito
+    </a>
+</div>
+
+{% else %}
+<p class="text-muted">Tu carrito está vacío.</p>
+<a href="{% url 'inicio' %}" class="btn btn-primary">Ver flores</a>
+{% endif %}
+
+{% endblock %}
+
+
